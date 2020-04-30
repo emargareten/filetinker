@@ -1,0 +1,3 @@
+<?php /** @noinspection PhpExpressionResultUnusedInspection */
+
+// Start tinkering...

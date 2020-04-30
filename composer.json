@@ -1,0 +1,37 @@
+{
+    "name": "emargareten/filetinker",
+    "description": "Artisan Tinker in your IDE",
+    "version": "0.0.0",
+    "keywords": [
+        "laravel",
+        "tinker",
+        "debug",
+        "development"
+    ],
+    "homepage": "https://github.com/emargareten/filetinker",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Eliezer Margareten"
+        }
+    ],
+    "require": {
+        "php": "^7.2",
+        "illuminate/support": "^5.8|^6.0|^7.0",
+        "laravel/tinker": "^1.0|^2.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Emargareten\\FileTinker\\": "src"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Emargareten\\FileTinker\\FileTinkerServiceProvider"
+            ]
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}

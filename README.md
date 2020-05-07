@@ -51,7 +51,7 @@ return [
 
 ## Usage
 
-Write your code in tinker.php (or whichever file is configured to run filetinker) then run `php artisan filetinker` and see the output in your terminal!
+Write your code in tinker.php (or whichever file is configured to run filetinker) then run `php artisan filetinker:run` and see the output in your terminal!
 
 (You can set up run configuration and/or keyboard shortcuts in your IDE to run this command.)
 

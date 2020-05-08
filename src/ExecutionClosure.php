@@ -24,8 +24,6 @@ class ExecutionClosure extends PsyExecutionClosure
     {
         $this->setClosure($__psysh__, function () use ($__psysh__) {
 
-            $__psysh__->beforeLoop();
-
             try {
                 $__psysh__->getInput();
 
@@ -38,7 +36,7 @@ class ExecutionClosure extends PsyExecutionClosure
                     \set_error_handler([$__psysh__, 'handleError']);
 
                     // Evaluate the current code buffer
-                    $_ = eval($__psysh__->onExecute($__psysh__->flushCode() ?: ExecutionClosure::NOOP_INPUT));
+                    $_ = eval($__psysh__->onExecute($__psysh__->flushCode() ?: PsyExecutionClosure::NOOP_INPUT));
                 } catch (\Throwable $_e) {
                     // Clean up on our way out.
                     if (\ob_get_level() > 0) {
@@ -70,8 +68,6 @@ class ExecutionClosure extends PsyExecutionClosure
             } catch (\Exception $_e) {
                 $__psysh__->writeException($_e);
             }
-
-            $__psysh__->afterLoop();
         });
     }
 }

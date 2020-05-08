@@ -49,8 +49,9 @@ class RunCommand extends Command
      */
     public function handle()
     {
-        $code = file_get_contents($this->getTinkerFile());
-        $code = $this->removeCommentsAndTags($code);
+        // we will add a php close tag so the file can start with an open tag
+        $code = '?>';
+        $code .= file_get_contents($this->getTinkerFile());
 
         $this->shell->addInput($code);
 
@@ -68,7 +69,7 @@ class RunCommand extends Command
         $config = new Configuration([
             'prompt'      => "\n",
             'updateCheck' => 'never',
-            'configFile'  => config('filetinker.config_file') !== null ? base_path() . '/' . config('filetinker.config_file') : null,
+            'usePcntl'    => false
         ]);
 
         $config->getPresenter()->addCasters([
@@ -102,25 +103,6 @@ class RunCommand extends Command
         return $file;
     }
 
-    public function removeCommentsAndTags(string $code): string
-    {
-        $tokens = collect(token_get_all($code));
-
-        return $tokens->reduce(function ($carry, $token) {
-            if (is_string($token)) {
-                return $carry . $token;
-            }
-
-            [$id, $text] = $token;
-
-            if ($id === T_COMMENT || $id === T_DOC_COMMENT || $id === T_OPEN_TAG || $id === T_CLOSE_TAG) {
-                $text = '';
-            }
-
-            return $carry . $text;
-        }, '');
-    }
-
     protected function cleanOutput(string $output): string
     {
         $output = preg_replace('/(?s)(<aside.*?<\/aside>)|Exit:  Ctrl\+D/ms', '$2', $output);
@@ -130,8 +112,8 @@ class RunCommand extends Command
 
     protected function writeOutput($output)
     {
-        if (config('filetinker.date_prepend_format')) {
-            $this->info("[" . date(config('filetinker.date_prepend_format')) . "]");
+        if (config('filetinker.prepend_message')) {
+            $this->info(config('filetinker.prepend_message'));
         }
 
         echo $output . "\n";

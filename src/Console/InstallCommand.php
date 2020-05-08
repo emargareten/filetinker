@@ -29,7 +29,7 @@ class InstallCommand extends Command
         $this->callSilent('vendor:publish', ['--tag' => 'filetinker-file']);
 
         $this->info('Done! You can now start to tinker from your file.');
-        $this->info('Just write your code in the tinker file and run php artisan filetinker');
+        $this->info('Just write your code in the tinker file and run `php artisan filetinker:run`');
 
     }
 }

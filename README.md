@@ -4,8 +4,6 @@ Artisan's tinker command is a great way to tinker with your application in the t
 
 This package will add a file in your project from where you will be able to run your tinker code.
 
-*This package is still under development*
-
 ## Installation
 
 You can install the package via composer:

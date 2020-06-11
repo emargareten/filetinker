@@ -9,11 +9,6 @@
     ],
     "homepage": "https://github.com/emargareten/filetinker",
     "license": "MIT",
-    "authors": [
-        {
-            "name": "Eliezer Margareten"
-        }
-    ],
     "require": {
         "php": "^7.2",
         "illuminate/support": "^5.8|^6.0|^7.0",

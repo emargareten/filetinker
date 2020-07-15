@@ -52,6 +52,7 @@ class RunCommand extends Command
         // we will add a php close tag so the file can start with an open tag
         $code = '?>';
         $code .= file_get_contents($this->getTinkerFile());
+        $code = $this->removeComments($code);
 
         $this->shell->addInput($code);
 
@@ -101,6 +102,25 @@ class RunCommand extends Command
         }
 
         return $file;
+    }
+
+    public function removeComments(string $code): string
+    {
+        $tokens = collect(token_get_all($code));
+
+        return $tokens->reduce(function ($carry, $token) {
+            if (is_string($token)) {
+                return $carry . $token;
+            }
+
+            [$id, $text] = $token;
+
+            if ($id === T_COMMENT || $id === T_DOC_COMMENT) {
+                $text = '';
+            }
+
+            return $carry . $text;
+        }, '');
     }
 
     protected function cleanOutput(string $output): string
